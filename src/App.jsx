@@ -5,8 +5,9 @@ const App = () => {
 
   return (
     <>
-      <div className="centered-container">
+      <div className='centered-container'>
         <Viewer/>
+        <div className='bg-text'>SELECT</div>
       </div>
     </>
   )
