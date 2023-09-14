@@ -1,6 +1,6 @@
 import { useState, useRef, Suspense } from 'react'
 import { Canvas, useFrame  } from '@react-three/fiber'
-import { OrbitControls, BakeShadows, Stage, Environment, Preload } from '@react-three/drei'
+import { OrbitControls, BakeShadows, Text, Stage, Environment, Preload } from '@react-three/drei'
 import { useSpring, useSprings, animated } from '@react-spring/three'
 import { Autofocus, Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
 import { useControls, folder, button } from "leva";
@@ -14,16 +14,16 @@ import { JVCTV } from './components/Jvctv'
 
 export const Viewer = () => {
 
-    const numCartridges = 3
+    const numCartridges = 4
     const [activeCartridge, setActiveCartridge] = useState(1)
     const [downpressed, setDownpressed] = useState(false)
-    const [playSwitch] = useSound('d.mp3');
-    const [playSelect] = useSound('mega.mp3');
+    const [playSwitch] = useSound('d.mp3')
+    const [playSelect] = useSound('mega.mp3')
 
     const getTargetScale = (cartridgeId) => (activeCartridge === cartridgeId ? 0.5 : 0.4);
     const [{ ypos }] = useSpring(() => ({ to: { ypos: downpressed ? -0.8 : 1.5 } }), [downpressed])
     const [{ xpos }] = useSpring(() => ({ to: { xpos: 3.5 - 3.5 * activeCartridge} }), [activeCartridge])
-      
+     
     const scaleSprings = useSprings(
         numCartridges, 
         Array.from({ length: numCartridges }, (_, i) => ({
@@ -109,7 +109,8 @@ export const Viewer = () => {
                         <Bloom intensity={0.5} luminanceThreshold={1} />
                     </EffectComposer> */}
                     {/* <OrbitControls target={[0, 0, -38]}/> */}
-                    <OrbitControls target={[0, 0, 0]}/>
+                    {/* <OrbitControls target={[0, 0, 0]}/> */}
+            
                 </Suspense>
                 
 
