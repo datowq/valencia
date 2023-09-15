@@ -7,7 +7,7 @@ const App = () => {
     <>
       <div className='centered-container'>
         <Viewer/>
-        <div className='bg-text'>SELECT</div>
+        <div className='bg-text'>.</div>
       </div>
     </>
   )

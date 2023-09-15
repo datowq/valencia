@@ -20,10 +20,11 @@ export const Viewer = () => {
     const [playSwitch] = useSound('d.mp3')
     const [playSelect] = useSound('mega.mp3')
 
+    
+
     const getTargetScale = (cartridgeId) => (activeCartridge === cartridgeId ? 0.5 : 0.4);
-    const [{ ypos }] = useSpring(() => ({ to: { ypos: downpressed ? -0.8 : 1.5 } }), [downpressed])
     const [{ xpos }] = useSpring(() => ({ to: { xpos: 3.5 - 3.5 * activeCartridge} }), [activeCartridge])
-     
+
     const scaleSprings = useSprings(
         numCartridges, 
         Array.from({ length: numCartridges }, (_, i) => ({
@@ -69,8 +70,7 @@ export const Viewer = () => {
                 frameloop='always'
                 shadows
                 camera={{position: [0, 4, 14], fov: 25}}
-                // camera={{position: [0, 4, 10], fov: 10}}
-                gl={{ preserveDrawingBuffer: true }}
+                gl={{ preserveDrawingBuffer: true, antialias: true }}
             >
                 <Suspense fallback={<CanvasLoader/>}>
                 <ambientLight intensity={0.5} />
@@ -89,32 +89,27 @@ export const Viewer = () => {
                     shadow-mapSize-width={2048}
                     shadow-mapSize-height={1024}
                 />
-                    {/* <Stage adjustCamera={0.75} environment='city' intensity={0.6}> */}
-                        {/* <Cartridge position={[0,0.6,-0.3]} scale={0.4}/> */}
-                        <animated.group position-x={xpos} position-y={ypos} position-z={0}>
-                            {scaleSprings.map((spring, key) => (
-                                <Cartridge
-                                    key={key}
-                                    cartridgeId={key}  
-                                    position={[-3.5 + 3.5 * key, 0, -0.3]}
-                                    scale={spring.scale}
-                                />
-                            ))}
-                        </animated.group>
-                        <SNES isDown={downpressed} cartridgeId={activeCartridge} position={[0, -1.5, 0]}/>
-                        <JVCTV isDown={downpressed} cartridgeId={activeCartridge} position={[0, 0, -30]}/>
-                    {/* </Stage> */}
+                    <animated.group position-x={xpos} position-z={0}>
+                        {scaleSprings.map((spring, i) => (
+                            <Cartridge
+                                key={i}
+                                isDown={downpressed}
+                                activeCartridge={activeCartridge}
+                                cartridgeId={i}  
+                                position={[-3.5 + 3.5 * i, 0, -0.3]}
+                                scale={spring.scale}
+                            />
+                        ))}
+                    </animated.group>
+                    <SNES isDown={downpressed} cartridgeId={activeCartridge} position={[0, -1.5, 0]}/>
+                    <JVCTV 
+                        isDown={downpressed} 
+                        cartridgeId={activeCartridge} 
+                        position={[0, 0, -30]}/>
                     <BakeShadows />
-                    {/* <EffectComposer>
-                        <Bloom intensity={0.5} luminanceThreshold={1} />
-                    </EffectComposer> */}
-                    {/* <OrbitControls target={[0, 0, -38]}/> */}
-                    {/* <OrbitControls target={[0, 0, 0]}/> */}
-            
                 </Suspense>
-                
-
                 <Preload all/>
+                <OrbitControls/>
             </Canvas>
         </>
     )

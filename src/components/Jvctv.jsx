@@ -1,27 +1,37 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef, useEffect } from 'react'
+import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import WebsiteTexture from './JvcScreen'
+import '../App.css'
 
 const materialsByCartridgeId = {
   0: new THREE.MeshStandardMaterial({
-    color: '#FCCA46',
-    side: THREE.DoubleSide,
+    color: '#EF476F',
+    side: THREE.FrontSide,
+    transparent: 0.2,
   }),
   1: new THREE.MeshStandardMaterial({
-    color: '#FE7F2D',
+    color: '#06D6A0',
     side: THREE.DoubleSide,
   }),
   2: new THREE.MeshStandardMaterial({
-    color: '#F15BB5',
+    color: '#FFA69E',
+    side: THREE.DoubleSide,
+  }),
+  3: new THREE.MeshStandardMaterial({
+    color: '#2D3047',
     side: THREE.DoubleSide,
   }),
   default: new THREE.MeshStandardMaterial({
-    color: '#F15BB5',
+    color: '#2D3047',
     side: THREE.DoubleSide,
   }),
 }
+
+const invisibleMaterial = new THREE.MeshBasicMaterial({
+  transparent: true,
+  opacity: 0,
+});
 
 export function JVCTV(props) {
   const { nodes, materials } = useGLTF('/jvctv-transformed.glb')
@@ -35,50 +45,75 @@ export function JVCTV(props) {
   const originalRotation = new THREE.Quaternion();
   const tempQuaternion = new THREE.Quaternion();
 
-  useFrame((state) => {
-    if (props.isDown) {
-      // Calculate the position to look at (the position of the JVC TV)
-      const lookAtPosition = jvcref.current.position.clone()
+  // useFrame((state) => {
+  //   if (props.isDown) {
+  //     // setTimeout(() => {
+  //       // Calculate the position to look at (the position of the JVC TV)
+  //       const lookAtPosition = jvcref.current.position.clone();
   
-      // Adjust the lookAt position to make it look slightly higher
-      lookAtPosition.y += 10
-      lookAtPosition.z += 20
+  //       // Adjust the lookAt position to make it look slightly higher
+  //       lookAtPosition.y += 10;
+  //       lookAtPosition.z += 20;
   
-      state.camera.getWorldQuaternion(targetRotation)
-      tempQuaternion.copy(state.camera.quaternion)
-      state.camera.lookAt(lookAtPosition)
-      state.camera.getWorldQuaternion(originalRotation)
-      state.camera.quaternion.copy(tempQuaternion)
+  //       state.camera.getWorldQuaternion(targetRotation);
+  //       tempQuaternion.copy(state.camera.quaternion);
+  //       state.camera.lookAt(lookAtPosition);
+  //       state.camera.getWorldQuaternion(originalRotation);
+  //       state.camera.quaternion.copy(tempQuaternion);
   
-      state.camera.quaternion.slerp(targetRotation, 0.03)
+  //       state.camera.quaternion.slerp(targetRotation, 0.3);
   
-      const cameraPosition = state.camera.position.clone()
-      cameraPosition.y -= 0.13
-    
-      cameraPosition.lerp(lookAtPosition, 0.03)
-      state.camera.position.copy(cameraPosition)
-    } else {
-      state.camera.getWorldQuaternion(targetRotation)
-      tempQuaternion.copy(state.camera.quaternion)
-      state.camera.lookAt(0, 0, 0)
-      state.camera.getWorldQuaternion(originalRotation)
-      state.camera.quaternion.copy(tempQuaternion)
+  //       const cameraPosition = state.camera.position.clone();
+  //       cameraPosition.y -= 0.13;
   
-      state.camera.quaternion.slerp(targetRotation, 0.03)
+  //       cameraPosition.lerp(lookAtPosition, 0.03);
+  //       state.camera.position.copy(cameraPosition);
+  //     // }, 200)
+  //   } else {
+  //     state.camera.getWorldQuaternion(targetRotation)
+  //     tempQuaternion.copy(state.camera.quaternion)
+  //     state.camera.lookAt(0, 0, 0)
+  //     state.camera.getWorldQuaternion(originalRotation)
+  //     state.camera.quaternion.copy(tempQuaternion)
   
-      const cameraPosition = state.camera.position.clone()
+  //     state.camera.quaternion.slerp(targetRotation, 0.03)
+  
+  //     const cameraPosition = state.camera.position.clone()
 
-      cameraPosition.lerp(originalCameraPosition, 0.03)
-      state.camera.position.copy(cameraPosition)
-    }
-  })
+  //     cameraPosition.lerp(originalCameraPosition, 0.03)
+  //     state.camera.position.copy(cameraPosition)
+  //   }
+  // })
 
   return (
     <group ref={jvcref} {...props} dispose={null}>
       <group rotation={[0, 0, -Math.PI]} scale={[5.981, 5.985, 3.997]}>
         <mesh geometry={nodes.Cube_1.geometry} material={materials.body} />
-        <mesh geometry={nodes.Cube_2.geometry} material={props.isDown ? lowPolyMaterial : materials.screen} />
-        <WebsiteTexture/>
+        {/* <mesh geometry={nodes.Cube_2.geometry} material={props.isDown ? invisibleMaterial : materials.screen} 
+        > */}
+        <Html 
+          className='content'
+          transform
+          occlude='blending' 
+          position-z={0.78}
+          position-y={-0.137}
+          distanceFactor={0.56}
+          >
+            <iframe
+              src='https://iframetester.com/'
+              style={{
+                transform: 'scale(-1)',
+                position: 'relative',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '100%'
+              }}
+             />
+        </Html>
+        {/* </mesh> */}
+        
+      
         <mesh geometry={nodes.Cube_3.geometry} material={materials.bottom} />
         <mesh geometry={nodes.Cube_4.geometry} material={materials.buttons} />
       </group>

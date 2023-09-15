@@ -1,3 +1,7 @@
+* {
+  user-select: none;
+}
+
 @font-face {
   font-family: CRED;
   src: url(/Cred\ Regular.otf);
@@ -27,4 +31,21 @@ canvas {
   z-index: 0; 
   font-size: 25em; 
   color: white;
+}
+
+.cartridgetext {
+  color: white;
+  font-size: 1.5em;
+  z-index: 5;
+}
+
+.content {
+  width: 1024px;
+  height: 830px;
+  padding: 0;
+}
+
+.videowrapper {
+  position: relative;
+  padding-bottom: 100%; /* 16:9, for an aspect ratio of 1:1 change to this value to 100% */ 
 }
