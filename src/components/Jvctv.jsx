@@ -45,45 +45,45 @@ export function JVCTV(props) {
   const originalRotation = new THREE.Quaternion();
   const tempQuaternion = new THREE.Quaternion();
 
-  // useFrame((state) => {
-  //   if (props.isDown) {
-  //     // setTimeout(() => {
-  //       // Calculate the position to look at (the position of the JVC TV)
-  //       const lookAtPosition = jvcref.current.position.clone();
+  useFrame((state) => {
+    if (props.isDown) {
+      // setTimeout(() => {
+        // Calculate the position to look at (the position of the JVC TV)
+        const lookAtPosition = jvcref.current.position.clone();
   
-  //       // Adjust the lookAt position to make it look slightly higher
-  //       lookAtPosition.y += 10;
-  //       lookAtPosition.z += 20;
+        // Adjust the lookAt position to make it look slightly higher
+        lookAtPosition.y += 10;
+        lookAtPosition.z += 20;
   
-  //       state.camera.getWorldQuaternion(targetRotation);
-  //       tempQuaternion.copy(state.camera.quaternion);
-  //       state.camera.lookAt(lookAtPosition);
-  //       state.camera.getWorldQuaternion(originalRotation);
-  //       state.camera.quaternion.copy(tempQuaternion);
+        state.camera.getWorldQuaternion(targetRotation);
+        tempQuaternion.copy(state.camera.quaternion);
+        state.camera.lookAt(lookAtPosition);
+        state.camera.getWorldQuaternion(originalRotation);
+        state.camera.quaternion.copy(tempQuaternion);
   
-  //       state.camera.quaternion.slerp(targetRotation, 0.3);
+        state.camera.quaternion.slerp(targetRotation, 0.3);
   
-  //       const cameraPosition = state.camera.position.clone();
-  //       cameraPosition.y -= 0.13;
+        const cameraPosition = state.camera.position.clone();
+        cameraPosition.y -= 0.13;
   
-  //       cameraPosition.lerp(lookAtPosition, 0.03);
-  //       state.camera.position.copy(cameraPosition);
-  //     // }, 200)
-  //   } else {
-  //     state.camera.getWorldQuaternion(targetRotation)
-  //     tempQuaternion.copy(state.camera.quaternion)
-  //     state.camera.lookAt(0, 0, 0)
-  //     state.camera.getWorldQuaternion(originalRotation)
-  //     state.camera.quaternion.copy(tempQuaternion)
+        cameraPosition.lerp(lookAtPosition, 0.03);
+        state.camera.position.copy(cameraPosition);
+      // }, 200)
+    } else {
+      state.camera.getWorldQuaternion(targetRotation)
+      tempQuaternion.copy(state.camera.quaternion)
+      state.camera.lookAt(0, 0, 0)
+      state.camera.getWorldQuaternion(originalRotation)
+      state.camera.quaternion.copy(tempQuaternion)
   
-  //     state.camera.quaternion.slerp(targetRotation, 0.03)
+      state.camera.quaternion.slerp(targetRotation, 0.03)
   
-  //     const cameraPosition = state.camera.position.clone()
+      const cameraPosition = state.camera.position.clone()
 
-  //     cameraPosition.lerp(originalCameraPosition, 0.03)
-  //     state.camera.position.copy(cameraPosition)
-  //   }
-  // })
+      cameraPosition.lerp(originalCameraPosition, 0.03)
+      state.camera.position.copy(cameraPosition)
+    }
+  })
 
   return (
     <group ref={jvcref} {...props} dispose={null}>
@@ -98,6 +98,7 @@ export function JVCTV(props) {
           position-z={0.78}
           position-y={-0.137}
           distanceFactor={0.56}
+          zIndexRange={[50, 0]}
           >
             <iframe
               src='https://iframetester.com/'

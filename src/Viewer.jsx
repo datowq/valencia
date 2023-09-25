@@ -89,6 +89,7 @@ export const Viewer = () => {
                     shadow-mapSize-width={2048}
                     shadow-mapSize-height={1024}
                 />
+                    
                     <animated.group position-x={xpos} position-z={0}>
                         {scaleSprings.map((spring, i) => (
                             <Cartridge
@@ -98,18 +99,21 @@ export const Viewer = () => {
                                 cartridgeId={i}  
                                 position={[-3.5 + 3.5 * i, 0, -0.3]}
                                 scale={spring.scale}
+                                zIndexRange={[110, 0]}
                             />
                         ))}
                     </animated.group>
-                    <SNES isDown={downpressed} cartridgeId={activeCartridge} position={[0, -1.5, 0]}/>
                     <JVCTV 
                         isDown={downpressed} 
                         cartridgeId={activeCartridge} 
-                        position={[0, 0, -30]}/>
+                        position={[0, 0, -30]}
+                        zIndexRange={[40, 0]}
+                    />
+                    <SNES isDown={downpressed} cartridgeId={activeCartridge} position={[0, -1.5, 0]}/>
                     <BakeShadows />
                 </Suspense>
                 <Preload all/>
-                <OrbitControls/>
+                {/* <OrbitControls/> */}
             </Canvas>
         </>
     )

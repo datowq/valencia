@@ -55,11 +55,11 @@ export const Cartridge = (props) => {
           wrapperClass='cartridgetext'
           occlude
           castShadow
-          zIndexRange={[100, 0]} 
+          zIndexRange={[150, 0]} 
           receiveShadow
           transform 
-          position-z={1.53}
-          position-y={2}
+          position-z={1.23}
+          position-y={1}
         >
             
           {text[props.cartridgeId]}
