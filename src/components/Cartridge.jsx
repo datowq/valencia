@@ -5,38 +5,50 @@ import { useSpring, animated } from '@react-spring/three'
 import '../App.css'
 
 const materialsByCartridgeId = {
-  0: new THREE.MeshStandardMaterial({
+  0: new THREE.MeshToonMaterial({
     color: '#EF476F',
-    side: THREE.DoubleSide,
+    side: THREE.FrontSide,
+    transparent: 1,
   }),
-  1: new THREE.MeshStandardMaterial({
+  1: new THREE.MeshToonMaterial({
     color: '#06D6A0',
     side: THREE.DoubleSide,
   }),
-  2: new THREE.MeshStandardMaterial({
+  2: new THREE.MeshToonMaterial({
     color: '#FFA69E',
     side: THREE.DoubleSide,
   }),
-  3: new THREE.MeshStandardMaterial({
+  3: new THREE.MeshToonMaterial({
     color: '#2D3047',
     side: THREE.DoubleSide,
   }),
-  default: new THREE.MeshStandardMaterial({
-    color: '#2D3047',
+  4: new THREE.MeshToonMaterial({
+    color: '#06D6A0',
+    side: THREE.DoubleSide,
+  }),
+  5: new THREE.MeshToonMaterial({
+    color: '#EF476F',
+    side: THREE.DoubleSide,
+  }),
+  default: new THREE.MeshToonMaterial({
+    color: '#06D6A0',
     side: THREE.DoubleSide,
   }),
 }
-
 const blackMat = new THREE.MeshStandardMaterial({
   color: 'black',
   side: THREE.DoubleSide
 })
 
 const text = [
-  'PROJECTS',
-  'ABOUT',
+  'CREDITS',
   'CONTACT',
-  'CREDITS'
+  'RESUME',
+  'ABOUT',
+  'NOTEPOINT',
+  'ACM HACK',
+  'HOTH',
+  'ACE'
 ]
 
 export const Cartridge = (props) => {

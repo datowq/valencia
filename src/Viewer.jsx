@@ -14,9 +14,10 @@ import { JVCTV } from './components/Jvctv'
 
 export const Viewer = () => {
 
-    const numCartridges = 4
-    const [activeCartridge, setActiveCartridge] = useState(1)
+    const numCartridges = 8
+    const [activeCartridge, setActiveCartridge] = useState(3)
     const [downpressed, setDownpressed] = useState(false)
+    const [selectedScreen, setSelectedScreen] = useState(-1)
     const [playSwitch] = useSound('d.mp3')
     const [playSelect] = useSound('mega.mp3')
 
@@ -52,7 +53,9 @@ export const Viewer = () => {
             case 'ArrowDown':
             case 'S':
             case 's':
+                if(downpressed) return
                 setDownpressed(true)
+                setSelectedScreen(activeCartridge)
                 playSelect()
                 break
             case 'Backspace':
@@ -60,6 +63,7 @@ export const Viewer = () => {
             case 'W':
             case 'w':
                 setDownpressed(false)
+                setSelectedScreen(-1)
                 break
         }
     }
@@ -73,18 +77,18 @@ export const Viewer = () => {
                 gl={{ preserveDrawingBuffer: true, antialias: true }}
             >
                 <Suspense fallback={<CanvasLoader/>}>
-                <ambientLight intensity={0.5} />
+                <ambientLight intensity={1} />
                 <directionalLight
                     color={0xffffff}
-                    intensity={5}
-                    position={[0, 1500, 1000]}
+                    intensity={2}
+                    position={[500, 0, 500]}
                     castShadow
-                    shadow-camera-top={2000}
-                    shadow-camera-bottom={-2000}
-                    shadow-camera-left={-2000}
-                    shadow-camera-right={2000}
+                    shadow-camera-top={1000}
+                    shadow-camera-bottom={-1000}
+                    shadow-camera-left={-1000}
+                    shadow-camera-right={1000}
                     shadow-camera-near={1200}
-                    shadow-camera-far={2500}
+                    shadow-camera-far={1000}
                     shadow-bias={0.0001}
                     shadow-mapSize-width={2048}
                     shadow-mapSize-height={1024}
@@ -106,6 +110,7 @@ export const Viewer = () => {
                     <JVCTV 
                         isDown={downpressed} 
                         cartridgeId={activeCartridge} 
+                        selectedScreen={selectedScreen}
                         position={[0, 0, -30]}
                         zIndexRange={[40, 0]}
                     />

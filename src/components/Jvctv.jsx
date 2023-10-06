@@ -5,24 +5,32 @@ import { useFrame } from '@react-three/fiber'
 import '../App.css'
 
 const materialsByCartridgeId = {
-  0: new THREE.MeshStandardMaterial({
+  0: new THREE.MeshToonMaterial({
     color: '#EF476F',
     side: THREE.FrontSide,
-    transparent: 0.2,
+    transparent: 1,
   }),
-  1: new THREE.MeshStandardMaterial({
+  1: new THREE.MeshToonMaterial({
     color: '#06D6A0',
     side: THREE.DoubleSide,
   }),
-  2: new THREE.MeshStandardMaterial({
+  2: new THREE.MeshToonMaterial({
     color: '#FFA69E',
     side: THREE.DoubleSide,
   }),
-  3: new THREE.MeshStandardMaterial({
+  3: new THREE.MeshToonMaterial({
     color: '#2D3047',
     side: THREE.DoubleSide,
   }),
-  default: new THREE.MeshStandardMaterial({
+  4: new THREE.MeshToonMaterial({
+    color: '#2D3047',
+    side: THREE.DoubleSide,
+  }),
+  5: new THREE.MeshToonMaterial({
+    color: '#EF476F',
+    side: THREE.DoubleSide,
+  }),
+  default: new THREE.MeshToonMaterial({
     color: '#2D3047',
     side: THREE.DoubleSide,
   }),
@@ -32,6 +40,18 @@ const invisibleMaterial = new THREE.MeshBasicMaterial({
   transparent: true,
   opacity: 0,
 });
+
+const noise = 'https://iframetester.com/'
+const sites = [
+  'https://iframetester.com/',
+  'https://www.urbandictionary.com/define.php?term=Pog',
+  'https://notepoint.vercel.app/',
+  'https://iframetester.com/',
+  'https://notepoint.vercel.app/',
+  'https://hack.uclaacm.com/',
+  'https://hoth.uclaacm.com/',
+  'https://sites.google.com/view/diahsdas8dyas8dbuq2bdu1bdb2u1/home'
+]
 
 export function JVCTV(props) {
   const { nodes, materials } = useGLTF('/jvctv-transformed.glb')
@@ -101,7 +121,8 @@ export function JVCTV(props) {
           zIndexRange={[50, 0]}
           >
             <iframe
-              src='https://iframetester.com/'
+              //src = -1 for inception
+              src={props.selectedScreen >= 0 ? sites[props.selectedScreen] : -1}
               style={{
                 transform: 'scale(-1)',
                 position: 'relative',
@@ -113,8 +134,6 @@ export function JVCTV(props) {
              />
         </Html>
         {/* </mesh> */}
-        
-      
         <mesh geometry={nodes.Cube_3.geometry} material={materials.bottom} />
         <mesh geometry={nodes.Cube_4.geometry} material={materials.buttons} />
       </group>
