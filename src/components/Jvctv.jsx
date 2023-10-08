@@ -41,7 +41,7 @@ const invisibleMaterial = new THREE.MeshBasicMaterial({
   opacity: 0,
 });
 
-const noise = 'https://iframetester.com/'
+const noise = 'https://datowq.github.io/bouncingemote/'
 const sites = [
   'https://iframetester.com/',
   'https://www.urbandictionary.com/define.php?term=Pog',
@@ -122,7 +122,7 @@ export function JVCTV(props) {
           >
             <iframe
               //src = -1 for inception
-              src={props.selectedScreen >= 0 ? sites[props.selectedScreen] : -1}
+              src={props.selectedScreen >= 0 ? sites[props.selectedScreen] : noise}
               style={{
                 transform: 'scale(-1)',
                 position: 'relative',
