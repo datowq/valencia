@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
 import { useSpring, animated } from '@react-spring/three'
+import cartridgemodel from '/cartridge-transformed.glb'
 import '../App.css'
 
 const materialsByCartridgeId = {
@@ -52,7 +53,7 @@ const text = [
 ]
 
 export const Cartridge = (props) => {
-  const { nodes, materials } = useGLTF('/cartridge-transformed.glb')
+  const { nodes, materials } = useGLTF(cartridgemodel)
 
   const lowPolyMaterial = materialsByCartridgeId[props.cartridgeId] || materialsByCartridgeId.default
 
@@ -85,4 +86,4 @@ export const Cartridge = (props) => {
   )
 }
 
-useGLTF.preload('/cartridge-transformed.glb')
+useGLTF.preload(cartridgemodel)

@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import '../App.css'
+import JVCTVmodel from '/jvctv-transformed.glb'
 
 const materialsByCartridgeId = {
   0: new THREE.MeshToonMaterial({
@@ -54,7 +55,7 @@ const sites = [
 ]
 
 export function JVCTV(props) {
-  const { nodes, materials } = useGLTF('/jvctv-transformed.glb')
+  const { nodes, materials } = useGLTF(JVCTVmodel)
 
   const lowPolyMaterial = materialsByCartridgeId[props.cartridgeId] || materialsByCartridgeId.default
   const jvcref = useRef()
@@ -141,4 +142,4 @@ export function JVCTV(props) {
   )
 }
 
-useGLTF.preload('/jvctv-transformed.glb')
+useGLTF.preload(JVCTVmodel)

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import SNESmodel from '/snes-transformed.glb'
 
 const materialsByCartridgeId = {
   0: new THREE.MeshStandardMaterial({
@@ -25,7 +26,7 @@ const materialsByCartridgeId = {
   }),
 }
 export const SNES = (props) => {
-  const { nodes, materials } = useGLTF('/snes-transformed.glb')
+  const { nodes, materials } = useGLTF(SNESmodel)
 
   const lowPolyMaterial = materialsByCartridgeId[props.cartridgeId] || materialsByCartridgeId.default
 
@@ -42,4 +43,4 @@ export const SNES = (props) => {
   )
 }
 
-useGLTF.preload('/snes-transformed.glb')
+useGLTF.preload(SNESmodel)
