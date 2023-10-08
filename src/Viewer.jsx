@@ -18,8 +18,8 @@ export const Viewer = () => {
     const [activeCartridge, setActiveCartridge] = useState(3)
     const [downpressed, setDownpressed] = useState(false)
     const [selectedScreen, setSelectedScreen] = useState(-1)
-    const [playSwitch] = useSound('d.mp3')
-    const [playSelect] = useSound('mega.mp3')
+    const [playSwitch] = useSound('/sounds/d.mp3')
+    const [playSelect] = useSound('/sounds/mega.mp3')
 
     
 

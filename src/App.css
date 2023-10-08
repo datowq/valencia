@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: CRED;
-  src: url(/Cred\ Regular.otf);
+  src: url('/fonts/CredRegular.otf');
 }
 
 .centered-container {

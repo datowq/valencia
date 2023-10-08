@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
 import { useSpring, animated } from '@react-spring/three'
-import cartridgemodel from '/cartridge-transformed.glb'
+import cartridgemodel from '/models/cartridge-transformed.glb'
 import '../App.css'
 
 const materialsByCartridgeId = {

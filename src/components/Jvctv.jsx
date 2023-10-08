@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import '../App.css'
-import JVCTVmodel from '/jvctv-transformed.glb'
+import JVCTVmodel from '/models/jvctv-transformed.glb'
 
 const materialsByCartridgeId = {
   0: new THREE.MeshToonMaterial({
