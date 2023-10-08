@@ -4,60 +4,18 @@ import { useGLTF, Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import '../App.css'
 import JVCTVmodel from '/models/jvctv-transformed.glb'
-
-const materialsByCartridgeId = {
-  0: new THREE.MeshToonMaterial({
-    color: '#EF476F',
-    side: THREE.FrontSide,
-    transparent: 1,
-  }),
-  1: new THREE.MeshToonMaterial({
-    color: '#06D6A0',
-    side: THREE.DoubleSide,
-  }),
-  2: new THREE.MeshToonMaterial({
-    color: '#FFA69E',
-    side: THREE.DoubleSide,
-  }),
-  3: new THREE.MeshToonMaterial({
-    color: '#2D3047',
-    side: THREE.DoubleSide,
-  }),
-  4: new THREE.MeshToonMaterial({
-    color: '#2D3047',
-    side: THREE.DoubleSide,
-  }),
-  5: new THREE.MeshToonMaterial({
-    color: '#EF476F',
-    side: THREE.DoubleSide,
-  }),
-  default: new THREE.MeshToonMaterial({
-    color: '#2D3047',
-    side: THREE.DoubleSide,
-  }),
-}
+import cartridge_data from '../data/cartridges.json'
 
 const invisibleMaterial = new THREE.MeshBasicMaterial({
   transparent: true,
   opacity: 0,
 });
 
-const noise = 'https://datowq.github.io/bouncingemote/'
-const sites = [
-  'https://iframetester.com/',
-  'https://www.urbandictionary.com/define.php?term=Pog',
-  'https://notepoint.vercel.app/',
-  'https://iframetester.com/',
-  'https://notepoint.vercel.app/',
-  'https://hack.uclaacm.com/',
-  'https://hoth.uclaacm.com/',
-  'https://sites.google.com/view/diahsdas8dyas8dbuq2bdu1bdb2u1/home'
-]
+const defaultsite = cartridge_data.defaultsite
+const sites = cartridge_data.sites
 
 export function JVCTV(props) {
   const { nodes, materials } = useGLTF(JVCTVmodel)
-
-  const lowPolyMaterial = materialsByCartridgeId[props.cartridgeId] || materialsByCartridgeId.default
   const jvcref = useRef()
   
   const originalCameraPosition = new THREE.Vector3(0, 4, 14);
@@ -123,7 +81,7 @@ export function JVCTV(props) {
           >
             <iframe
               //src = -1 for inception
-              src={props.selectedScreen >= 0 ? sites[props.selectedScreen] : noise}
+              src={props.selectedScreen >= 0 ? sites[props.selectedScreen] : defaultsite}
               style={{
                 transform: 'scale(-1)',
                 position: 'relative',

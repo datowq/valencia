@@ -14,8 +14,8 @@ import { JVCTV } from './components/Jvctv'
 
 export const Viewer = () => {
 
-    const numCartridges = 8
-    const [activeCartridge, setActiveCartridge] = useState(3)
+    const numCartridges = 5
+    const [activeCartridge, setActiveCartridge] = useState(2)
     const [downpressed, setDownpressed] = useState(false)
     const [selectedScreen, setSelectedScreen] = useState(-1)
     const [playSwitch] = useSound('/sounds/d.mp3')

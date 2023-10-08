@@ -4,24 +4,29 @@ import { useGLTF } from '@react-three/drei'
 import SNESmodel from '/models/snes-transformed.glb'
 
 const materialsByCartridgeId = {
-  0: new THREE.MeshStandardMaterial({
-    color: '#EF476F',
+  0: new THREE.MeshToonMaterial({
+    color: '#bf5b5b',
+    side: THREE.DoubleSide,
+    transparent: 1,
+  }),
+  1: new THREE.MeshToonMaterial({
+    color: '#c6b955',
     side: THREE.DoubleSide,
   }),
-  1: new THREE.MeshStandardMaterial({
-    color: '#06D6A0',
+  2: new THREE.MeshToonMaterial({
+    color: '#86b460',
     side: THREE.DoubleSide,
   }),
-  2: new THREE.MeshStandardMaterial({
-    color: '#FFA69E',
+  3: new THREE.MeshToonMaterial({
+    color: '#3c8d88',
     side: THREE.DoubleSide,
   }),
-  3: new THREE.MeshStandardMaterial({
-    color: '#2D3047',
+  4: new THREE.MeshToonMaterial({
+    color: '#595758',
     side: THREE.DoubleSide,
   }),
-  default: new THREE.MeshStandardMaterial({
-    color: '#2D3047',
+  default: new THREE.MeshToonMaterial({
+    color: '#595758',
     side: THREE.DoubleSide,
   }),
 }
